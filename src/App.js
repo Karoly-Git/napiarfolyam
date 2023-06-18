@@ -60,9 +60,9 @@ export default function App() {
         <thead>
           <tr>
             <th>Pénznem</th>
-            <th>Vétel</th>
+            <th className='off'>Vétel</th>
             <th>Közép</th>
-            <th>Eladás</th>
+            <th className='off'>Eladás</th>
             <th>Dátum</th>
           </tr>
         </thead>
@@ -71,9 +71,9 @@ export default function App() {
           {sortedData.map((item, index) => (
             <tr key={index}>
               <td>{item.penznem}</td>
-              <td>{item.vetel}</td>
+              <td className='off'>{item.vetel}</td>
               <td>{item.kozep}</td>
-              <td>{item.eladas}</td>
+              <td className='off'>{item.eladas}</td>
               <td>{item.datum.split(" ")[0]}</td>
             </tr>
           ))}
