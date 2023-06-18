@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+.App {
+  padding: 1rem;
+}
+.App header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 0;
+}
+.App header select {
+  padding: 0.5rem 1rem;
+}
+.App header div {
+  margin-left: 2rem;
+}
+.App table {
+  width: 100%;
+  max-width: 500px;
+  border-collapse: collapse;
+}
+.App table thead {
+  background-color: green;
+  color: white;
+}
+.App table tbody tr:nth-child(2n) {
+  background-color: grey;
+  color: white;
+}
+.App table th {
+  padding: 1rem;
+}
+.App table td {
+  padding: 0.25rem 1rem;
+}/*# sourceMappingURL=app.css.map */
