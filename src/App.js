@@ -51,19 +51,19 @@ export default function App() {
           <h4>
             MNB - GBP
           </h4>
-          <h3>
+          <h4>
             {mnbGbp ? Number(mnbGbp.kozep).toFixed(2) + ' HUF' : 'Loading...'}
-          </h3>
+          </h4>
         </div>
       </header>
       <table>
         <thead>
           <tr>
             <th>Pénznem</th>
-            <th className='off'>Vétel</th>
+            <th>Vétel</th>
             <th>Közép</th>
-            <th className='off'>Eladás</th>
-            <th>Dátum</th>
+            <th>Eladás</th>
+            <th className='datum'>Dátum</th>
           </tr>
         </thead>
 
@@ -74,7 +74,7 @@ export default function App() {
               <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2) : '-'}</td>
               <td className='kozep'>{item.kozep ? Number(item.kozep) : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)}</td>
               <td className='eladas'>{item.eladas ? Number(item.eladas) : '-'}</td>
-              <td className='datum'>{item.datum.split(" ")[0]}</td>
+              <td className='datum'>{item.datum.split(" ")[0].split('-').join('.')}</td>
             </tr>
           ))}
         </tbody>

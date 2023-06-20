@@ -42,10 +42,23 @@
   padding: 0.25rem 1rem;
   text-align: right;
 }
+.App table td {
+  border-right: 1px solid rgb(180, 180, 180);
+}
 .App table .penznem {
   text-align: left;
 }
+.App table .datum {
+  display: none;
+}
 
+@media only screen and (max-width: 500px) {
+  .App .th,
+.App td {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+  }
+}
 @media only screen and (max-width: 430px) {
   .App header {
     flex-direction: column;
@@ -54,6 +67,13 @@
   .App header div {
     margin-left: 0;
     margin-top: 1rem;
+  }
+  .App header div h4 {
+    font-size: 0.85rem;
+  }
+  .App th,
+.App td {
+    font-size: 0.75rem;
   }
 }
 @media only screen and (max-width: 350px) {
