@@ -52,7 +52,7 @@ export default function App() {
             MNB - GBP
           </h4>
           <h3>
-            {mnbGbp ? mnbGbp.kozep * 1 + ' HUF' : 'Loading...'}
+            {mnbGbp ? Number(mnbGbp.kozep).toFixed(2) + ' HUF' : 'Loading...'}
           </h3>
         </div>
       </header>
@@ -70,11 +70,11 @@ export default function App() {
         <tbody>
           {sortedData.map((item, index) => (
             <tr key={index}>
-              <td>{item.penznem}</td>
-              <td className='off'>{item.vetel}</td>
-              <td>{item.kozep}</td>
-              <td className='off'>{item.eladas}</td>
-              <td>{item.datum.split(" ")[0]}</td>
+              <td className='penznem'>{item.penznem}</td>
+              <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2) : '-'}</td>
+              <td className='kozep'>{item.kozep ? Number(item.kozep) : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)}</td>
+              <td className='eladas'>{item.eladas ? Number(item.eladas) : '-'}</td>
+              <td className='datum'>{item.datum.split(" ")[0]}</td>
             </tr>
           ))}
         </tbody>
