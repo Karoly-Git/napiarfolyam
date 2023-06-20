@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/napiarfolyam/static/css/main.a119d0d6.css",
+    "main.css": "/napiarfolyam/static/css/main.1e1fab87.css",
     "main.js": "/napiarfolyam/static/js/main.c24d3f44.js",
     "static/js/787.c4e7f8f9.chunk.js": "/napiarfolyam/static/js/787.c4e7f8f9.chunk.js",
     "index.html": "/napiarfolyam/index.html",
-    "main.a119d0d6.css.map": "/napiarfolyam/static/css/main.a119d0d6.css.map",
+    "main.1e1fab87.css.map": "/napiarfolyam/static/css/main.1e1fab87.css.map",
     "main.c24d3f44.js.map": "/napiarfolyam/static/js/main.c24d3f44.js.map",
     "787.c4e7f8f9.chunk.js.map": "/napiarfolyam/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a119d0d6.css",
+    "static/css/main.1e1fab87.css",
     "static/js/main.c24d3f44.js"
   ]
 }
