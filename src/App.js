@@ -72,8 +72,8 @@ export default function App() {
             <tr key={index}>
               <td className='penznem'>{item.penznem}</td>
               <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2) : '-'} {item.vetel ? <span className='huf'>HUF</span> : ''}</td>
-              <td className='kozep'>{item.kozep ? Number(item.kozep) : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)} <span className='huf'>HUF</span></td>
-              <td className='eladas'>{item.eladas ? Number(item.eladas) : '-'} {item.eladas ? <span className='huf'>HUF</span> : ''}</td>
+              <td className='kozep'>{item.kozep ? Number(item.kozep).toFixed(2) : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)} <span className='huf'>HUF</span></td>
+              <td className='eladas'>{item.eladas ? Number(item.eladas).toFixed(2) : '-'} {item.eladas ? <span className='huf'>HUF</span> : ''}</td>
               <td className='datum'>{item.datum.split(" ")[0].split('-').join('.')}</td>
             </tr>
           ))}
