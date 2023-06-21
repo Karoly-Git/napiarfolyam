@@ -49,7 +49,7 @@ export default function App() {
         </select>
         <div>
           <h4>
-            MNB - GBP
+            GBP/HUF
           </h4>
           <h4>
             {mnbGbp ? Number(mnbGbp.kozep).toFixed(2) + ' HUF' : 'Loading...'}
@@ -71,9 +71,9 @@ export default function App() {
           {sortedData.map((item, index) => (
             <tr key={index}>
               <td className='penznem'>{item.penznem}</td>
-              <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2) : '-'}</td>
-              <td className='kozep'>{item.kozep ? Number(item.kozep) : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)}</td>
-              <td className='eladas'>{item.eladas ? Number(item.eladas) : '-'}</td>
+              <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2) : '-'} {item.vetel ? <span className='huf'>HUF</span> : ''}</td>
+              <td className='kozep'>{item.kozep ? Number(item.kozep) : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)} <span className='huf'>HUF</span></td>
+              <td className='eladas'>{item.eladas ? Number(item.eladas) : '-'} {item.eladas ? <span className='huf'>HUF</span> : ''}</td>
               <td className='datum'>{item.datum.split(" ")[0].split('-').join('.')}</td>
             </tr>
           ))}
@@ -84,6 +84,28 @@ export default function App() {
   )
 }
 
+
+let currencies = [
+  { code: "AUD", name: "Australian Dollar" },
+  { code: "BGN", name: "Bulgarian Lev" },
+  { code: "CAD", name: "Canadian Dollar" },
+  { code: "CHF", name: "Swiss Franc" },
+  { code: "CZK", name: "Czech Koruna" },
+  { code: "DKK", name: "Danish Krone" },
+  { code: "EUR", name: "Euro" },
+  { code: "GBP", name: "British Pound" },
+  { code: "HRK", name: "Croatian Kuna" },
+  { code: "JPY", name: "Japanese Yen" },
+  { code: "NOK", name: "Norwegian Krone" },
+  { code: "PLN", name: "Polish Zloty" },
+  { code: "RON", name: "Romanian Leu" },
+  { code: "RSD", name: "Serbian Dinar" },
+  { code: "RUB", name: "Russian Ruble" },
+  { code: "SEK", name: "Swedish Krona" },
+  { code: "TRY", name: "Turkish Lira" },
+  { code: "UAH", name: "Ukrainian Hryvnia" },
+  { code: "USD", name: "United States Dollar" }
+];
 
 
 

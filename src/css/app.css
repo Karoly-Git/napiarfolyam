@@ -21,29 +21,50 @@
 .App header div {
   margin-left: 2rem;
 }
+.App header div h4:first-child {
+  font-size: 0.75rem;
+  color: darkcyan;
+  font-weight: 100;
+}
+.App header div h4 {
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.65);
+}
 .App table {
   width: 100%;
   max-width: 500px;
   border-collapse: collapse;
 }
-.App table thead {
-  background-color: green;
-  color: white;
+.App table thead tr {
+  background-image: linear-gradient(white, rgba(200, 200, 200, 0.5));
 }
-.App table tbody tr:nth-child(2n) {
-  background-color: grey;
-  color: white;
+.App table thead tr th {
+  font-weight: 400;
+}
+.App table tbody tr {
+  border-bottom: 1px solid rgba(200, 200, 200, 0.7);
+}
+.App table tbody tr td img {
+  width: 25px;
+}
+.App table tbody tr td .huf {
+  font-size: 0.75rem;
+}
+.App table tbody .vetel,
+.App table tbody .eladas {
+  color: rgb(74, 134, 232);
+  color: darkcyan;
+}
+.App table tbody .kozep {
+  color: rgb(74, 134, 232);
 }
 .App table th {
   padding: 1rem;
   text-align: left;
 }
 .App table td {
-  padding: 0.25rem 1rem;
+  padding: 1rem 1rem;
   text-align: right;
-}
-.App table td:not(td:nth-child(4)) {
-  border-right: 1px solid rgb(180, 180, 180);
 }
 .App table .penznem {
   text-align: left;
@@ -79,6 +100,6 @@
 @media only screen and (max-width: 350px) {
   .App table th,
 .App table td {
-    padding: 0.25rem;
+    padding: 0.5rem;
   }
 }/*# sourceMappingURL=app.css.map */

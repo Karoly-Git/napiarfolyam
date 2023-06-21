@@ -21,6 +21,17 @@
 
         div {
             margin-left: 2rem;
+
+            h4:first-child {
+                font-size: 0.75rem;
+                color: darkcyan;
+                font-weight: 100;
+            }
+
+            h4 {
+                font-weight: 600;
+                color: rgba(0, 0, 0, 0.65);
+            }
         }
     }
 
@@ -30,16 +41,40 @@
         border-collapse: collapse;
 
         thead {
-            background-color: green;
-            color: white;
+
+            tr {
+                //background-color: green;
+                background-image: linear-gradient(white, rgba(200, 200, 200, 0.5));
+
+                th {
+                    font-weight: 400;
+                }
+            }
         }
 
         tbody {
-            //background-color: red;
+            tr {
+                border-bottom: 1px solid rgba(200, 200, 200, 0.7);
 
-            tr:nth-child(2n) {
-                background-color: grey;
-                color: white;
+                td {
+                    img {
+                        width: 25px;
+                    }
+
+                    .huf {
+                        font-size: 0.75rem;
+                    }
+                }
+            }
+
+            .vetel,
+            .eladas {
+                color: rgb(74, 134, 232);
+                color: darkcyan;
+            }
+
+            .kozep {
+                color: rgb(74, 134, 232);
             }
         }
 
@@ -50,12 +85,8 @@
         }
 
         td {
-            padding: 0.25rem 1rem;
+            padding: 1rem 1rem;
             text-align: right;
-        }
-
-        td:not(td:nth-child(4)) {
-            border-right: 1px solid rgb(180, 180, 180);
         }
 
         .penznem {
@@ -108,7 +139,7 @@
 
             th,
             td {
-                padding: 0.25rem;
+                padding: 0.5rem;
             }
         }
     }
