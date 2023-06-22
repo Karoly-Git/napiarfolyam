@@ -3,6 +3,49 @@ import Axios from 'axios'
 import { allBanks } from './js/data'
 import './css/app.css'
 
+import audx from './img/flags/aud.png';
+import bgnx from './img/flags/bgn.png';
+import cadx from './img/flags/cad.png';
+import chfx from './img/flags/chf.png';
+import czkx from './img/flags/czk.png';
+import dkkx from './img/flags/dkk.png';
+import eurx from './img/flags/eur.png';
+import gbpx from './img/flags/gbp.png';
+import hrkx from './img/flags/hrk.png';
+import jpyx from './img/flags/jpy.png';
+import nokx from './img/flags/nok.png';
+import plnx from './img/flags/pln.png';
+import ronx from './img/flags/ron.png';
+import rsdx from './img/flags/rsd.png';
+import rubx from './img/flags/rub.png';
+import sekx from './img/flags/sek.png';
+import tryx from './img/flags/try.png';
+import uahx from './img/flags/uah.png';
+import usdx from './img/flags/usd.png';
+
+let currencies = [
+  { code: "AUD", name: "Australian Dollar", src: audx },
+  { code: "BGN", name: "Bulgarian Lev", src: bgnx },
+  { code: "CAD", name: "Canadian Dollar", src: cadx },
+  { code: "CHF", name: "Swiss Franc", src: chfx },
+  { code: "CZK", name: "Czech Koruna", src: czkx },
+  { code: "DKK", name: "Danish Krone", src: dkkx },
+  { code: "EUR", name: "Euro", src: eurx },
+  { code: "GBP", name: "British Pound", src: gbpx },
+  { code: "HRK", name: "Croatian Kuna", src: hrkx },
+  { code: "JPY", name: "Japanese Yen", src: jpyx },
+  { code: "NOK", name: "Norwegian Krone", src: nokx },
+  { code: "PLN", name: "Polish Zloty", src: plnx },
+  { code: "RON", name: "Romanian Leu", src: ronx },
+  { code: "RSD", name: "Serbian Dinar", src: rsdx },
+  { code: "RUB", name: "Russian Ruble", src: rubx },
+  { code: "SEK", name: "Swedish Krona", src: sekx },
+  { code: "TRY", name: "Turkish Lira", src: tryx },
+  { code: "UAH", name: "Ukrainian Hryvnia", src: uahx },
+  { code: "USD", name: "United States Dollar", src: usdx }
+];
+
+
 export default function App() {
 
   const [dataDeviza, setDataDeviza] = useState([])
@@ -70,7 +113,10 @@ export default function App() {
         <tbody>
           {sortedData.map((item, index) => (
             <tr key={index}>
-              <td className='penznem'>{item.penznem}</td>
+              <td className='penznem'>
+                <img src={currencies.find(cur => cur.code.toUpperCase() === item.penznem).src} alt={item.src} />
+                {item.penznem}
+              </td>
               <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2) : '-'} {item.vetel ? <span className='huf'>HUF</span> : ''}</td>
               <td className='kozep'>{item.kozep ? Number(item.kozep).toFixed(2) : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)} <span className='huf'>HUF</span></td>
               <td className='eladas'>{item.eladas ? Number(item.eladas).toFixed(2) : '-'} {item.eladas ? <span className='huf'>HUF</span> : ''}</td>
@@ -83,32 +129,5 @@ export default function App() {
     </div >
   )
 }
-
-
-let currencies = [
-  { code: "AUD", name: "Australian Dollar" },
-  { code: "BGN", name: "Bulgarian Lev" },
-  { code: "CAD", name: "Canadian Dollar" },
-  { code: "CHF", name: "Swiss Franc" },
-  { code: "CZK", name: "Czech Koruna" },
-  { code: "DKK", name: "Danish Krone" },
-  { code: "EUR", name: "Euro" },
-  { code: "GBP", name: "British Pound" },
-  { code: "HRK", name: "Croatian Kuna" },
-  { code: "JPY", name: "Japanese Yen" },
-  { code: "NOK", name: "Norwegian Krone" },
-  { code: "PLN", name: "Polish Zloty" },
-  { code: "RON", name: "Romanian Leu" },
-  { code: "RSD", name: "Serbian Dinar" },
-  { code: "RUB", name: "Russian Ruble" },
-  { code: "SEK", name: "Swedish Krona" },
-  { code: "TRY", name: "Turkish Lira" },
-  { code: "UAH", name: "Ukrainian Hryvnia" },
-  { code: "USD", name: "United States Dollar" }
-];
-
-
-
-
 
 

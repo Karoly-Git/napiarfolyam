@@ -57,10 +57,6 @@
                 border-bottom: 1px solid rgba(200, 200, 200, 0.7);
 
                 td {
-                    img {
-                        width: 25px;
-                    }
-
                     .huf {
                         font-size: 0.75rem;
                     }
@@ -91,6 +87,15 @@
 
         .penznem {
             text-align: left;
+            display: flex;
+            align-items: center;
+
+            img {
+                width: 1.75rem;
+                height: 1rem;
+                margin-right: 5px;
+                border: 1px solid rgba(150, 150, 150, 0.85);
+            }
         }
 
         .datum {

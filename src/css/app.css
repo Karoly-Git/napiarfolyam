@@ -44,9 +44,6 @@
 .App table tbody tr {
   border-bottom: 1px solid rgba(200, 200, 200, 0.7);
 }
-.App table tbody tr td img {
-  width: 25px;
-}
 .App table tbody tr td .huf {
   font-size: 0.75rem;
 }
@@ -68,6 +65,14 @@
 }
 .App table .penznem {
   text-align: left;
+  display: flex;
+  align-items: center;
+}
+.App table .penznem img {
+  width: 1.75rem;
+  height: 1rem;
+  margin-right: 5px;
+  border: 1px solid rgba(150, 150, 150, 0.85);
 }
 .App table .datum {
   display: none;
