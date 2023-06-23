@@ -79,6 +79,14 @@ export default function App() {
     item => item.bank === 'mnb' && item.penznem === 'GBP'
   );
 
+  let mnbEur = dataDeviza.find(
+    item => item.bank === 'mnb' && item.penznem === 'EUR'
+  );
+
+  let mnbUsd = dataDeviza.find(
+    item => item.bank === 'mnb' && item.penznem === 'USD'
+  );
+
   console.log(mnbGbp);
   return (
     <div className="App" >
@@ -90,14 +98,32 @@ export default function App() {
             ))
           }
         </select>
-        <div>
-          <h4>
-            GBP/HUF
-          </h4>
-          <h4>
-            {mnbGbp ? Number(mnbGbp.kozep).toFixed(2) + ' HUF' : 'Loading...'}
-          </h4>
-        </div>
+        <section>
+          <div>
+            <h4>
+              GBP/HUF
+            </h4>
+            <h4>
+              {mnbGbp ? Number(mnbGbp.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
+            </h4>
+          </div>
+          <div>
+            <h4>
+              EUR/HUF
+            </h4>
+            <h4>
+              {mnbEur ? Number(mnbEur.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
+            </h4>
+          </div>
+          <div>
+            <h4>
+              USD/HUF
+            </h4>
+            <h4>
+              {mnbUsd ? Number(mnbUsd.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
+            </h4>
+          </div>
+        </section>
       </header>
       <table>
         <thead>
@@ -117,9 +143,9 @@ export default function App() {
                 <img src={currencies.find(cur => cur.code.toUpperCase() === item.penznem).src} alt={item.src} />
                 {item.penznem}
               </td>
-              <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2) : '-'} {item.vetel ? <span className='huf'>HUF</span> : ''}</td>
-              <td className='kozep'>{item.kozep ? Number(item.kozep).toFixed(2) : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)} <span className='huf'>HUF</span></td>
-              <td className='eladas'>{item.eladas ? Number(item.eladas).toFixed(2) : '-'} {item.eladas ? <span className='huf'>HUF</span> : ''}</td>
+              <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2).split('.').join(',') : '-'} {item.vetel ? <span className='huf'>HUF</span> : ''}</td>
+              <td className='kozep'>{item.kozep ? Number(item.kozep).toFixed(2).split('.').join(',') : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)} <span className='huf'>HUF</span></td>
+              <td className='eladas'>{item.eladas ? Number(item.eladas).toFixed(2).split('.').join(',') : '-'} {item.eladas ? <span className='huf'>HUF</span> : ''}</td>
               <td className='datum'>{item.datum.split(" ")[0].split('-').join('.')}</td>
             </tr>
           ))}
