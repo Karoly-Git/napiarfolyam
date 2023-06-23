@@ -10,6 +10,13 @@
     display: flex;
     flex-direction: column;
 
+    .thumbnail {
+        width: 1.75rem;
+        height: 1rem;
+        margin-right: 5px;
+        border: 1px solid rgba(150, 150, 150, 0.85);
+    }
+
     header {
         display: flex;
         flex-direction: column;
@@ -98,13 +105,6 @@
             text-align: left;
             display: flex;
             align-items: center;
-
-            img {
-                width: 1.75rem;
-                height: 1rem;
-                margin-right: 5px;
-                border: 1px solid rgba(150, 150, 150, 0.85);
-            }
         }
 
         .datum {

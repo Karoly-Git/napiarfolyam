@@ -101,7 +101,7 @@ export default function App() {
         <section>
           <div>
             <h4>
-              GBP/HUF
+              <img className='thumbnail' src={gbpx} alt='GBP'></img> MNB - £
             </h4>
             <h4>
               {mnbGbp ? Number(mnbGbp.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
@@ -109,7 +109,7 @@ export default function App() {
           </div>
           <div>
             <h4>
-              EUR/HUF
+              <img className='thumbnail' src={eurx} alt='EUR'></img> MNB -  €
             </h4>
             <h4>
               {mnbEur ? Number(mnbEur.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
@@ -117,7 +117,7 @@ export default function App() {
           </div>
           <div>
             <h4>
-              USD/HUF
+              <img className='thumbnail' src={usdx} alt='USD'></img> MNB - $
             </h4>
             <h4>
               {mnbUsd ? Number(mnbUsd.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
@@ -140,7 +140,7 @@ export default function App() {
           {sortedData.map((item, index) => (
             <tr key={index}>
               <td className='penznem'>
-                <img src={currencies.find(cur => cur.code.toUpperCase() === item.penznem).src} alt={item.src} />
+                <img className='thumbnail' src={currencies.find(cur => cur.code.toUpperCase() === item.penznem).src} alt={item.src} />
                 {item.penznem}
               </td>
               <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2).split('.').join(',') : '-'} {item.vetel ? <span className='huf'>HUF</span> : ''}</td>
