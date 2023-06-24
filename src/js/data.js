@@ -1,5 +1,5 @@
 export const allBanks = [
-    { id: 'mnb', bank: 'Magyar Nemzeti Bank' },
+    { id: 'mnb', bank: 'Magyar Nemzeti Bank', status: true },
     { id: 'akcenta', bank: 'Akcenta' },
     { id: 'allianz', bank: 'Allianz Bank' },
     { id: 'banco', bank: 'Banco' },

@@ -43,6 +43,10 @@
   font-weight: 600;
   color: rgba(0, 0, 0, 0.65);
 }
+.App header section div h4:nth-child(2) {
+  font-weight: 100;
+  color: rgb(74, 134, 232);
+}
 .App table {
   width: 100%;
   max-width: 500px;

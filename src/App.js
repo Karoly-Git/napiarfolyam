@@ -48,8 +48,12 @@ let currencies = [
 
 export default function App() {
 
-  const [dataDeviza, setDataDeviza] = useState([])
-  const [currentBank, setCurrentBank] = useState('mnb')
+  const [dataDeviza, setDataDeviza] = useState([]);
+  const [currentBank, setCurrentBank] = useState('mnb');
+
+  const [kozepGBP, setKozepGBP] = useState(0);
+  const [kozepEUR, setKozepEUR] = useState(0);
+  const [kozepUSD, setKozepUSD] = useState(0);
 
   let isLocalServer = !true;
 
@@ -59,6 +63,9 @@ export default function App() {
     Axios.get(url)
       .then(result => {
         setDataDeviza(result.data);
+        setKozepGBP(Number(result.data.find(item => item.bank === 'mnb' && item.penznem === 'GBP').kozep));
+        setKozepEUR(Number(result.data.find(item => item.bank === 'mnb' && item.penznem === 'EUR').kozep));
+        setKozepUSD(Number(result.data.find(item => item.bank === 'mnb' && item.penznem === 'USD').kozep));
       })
   }
 
@@ -66,61 +73,68 @@ export default function App() {
     fetchData();
   }, [])
 
-  let sortedData = dataDeviza
-    .filter(item => item.bank === currentBank)
-    .sort((a, b) => a.penznem.localeCompare(b.penznem));
 
   const handleBankChange = (e) => {
     const selectedBank = e.target.options[e.target.selectedIndex].getAttribute('id');
+
+    let vetelGBP = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'GBP').vetel);
+    let eladasGBP = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'GBP').eladas);
+    let kozepGBP = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'GBP').kozep);
+
+    let vetelEUR = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'EUR').vetel);
+    let eladasEUR = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'EUR').eladas);
+    let kozepEUR = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'EUR').kozep);
+
+    let vetelUSD = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'USD').vetel);
+    let eladasUSD = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'USD').eladas);
+    let kozepUSD = Number(dataDeviza.find(item => item.bank === selectedBank && item.penznem === 'USD').kozep);
+
+    setKozepGBP(kozepGBP ? kozepGBP = kozepGBP : kozepGBP = (vetelGBP + eladasGBP) / 2);
+    setKozepEUR(kozepEUR ? kozepEUR = kozepEUR : kozepEUR = (vetelEUR + eladasEUR) / 2);
+    setKozepUSD(kozepUSD ? kozepUSD = kozepUSD : kozepUSD = (vetelUSD + eladasUSD) / 2);
+
     setCurrentBank(selectedBank);
   }
 
-  let mnbGbp = dataDeviza.find(
-    item => item.bank === 'mnb' && item.penznem === 'GBP'
-  );
-
   let mnbEur = dataDeviza.find(
-    item => item.bank === 'mnb' && item.penznem === 'EUR'
+    item => item.bank === currentBank && item.penznem === 'EUR'
   );
 
   let mnbUsd = dataDeviza.find(
-    item => item.bank === 'mnb' && item.penznem === 'USD'
+    item => item.bank === currentBank && item.penznem === 'USD'
   );
 
-  console.log(mnbGbp);
   return (
     <div className="App" >
       <header>
         <select onChange={handleBankChange}>
           {allBanks
-            .map((item, index) => (
-              <option key={index} id={item.id}>{item.bank}</option>
-            ))
+            .map((item, index) => <option key={index} id={item.id}>{item.bank}</option>)
           }
         </select>
         <section>
           <div>
             <h4>
-              <img className='thumbnail' src={gbpx} alt='GBP'></img> MNB - £
+              <img className='thumbnail' src={gbpx} alt='GBP'></img> Font
             </h4>
             <h4>
-              {mnbGbp ? Number(mnbGbp.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
-            </h4>
-          </div>
-          <div>
-            <h4>
-              <img className='thumbnail' src={eurx} alt='EUR'></img> MNB -  €
-            </h4>
-            <h4>
-              {mnbEur ? Number(mnbEur.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
+              {kozepGBP ? Number(kozepGBP).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
             </h4>
           </div>
           <div>
             <h4>
-              <img className='thumbnail' src={usdx} alt='USD'></img> MNB - $
+              <img className='thumbnail' src={eurx} alt='EUR'></img> Euro
             </h4>
             <h4>
-              {mnbUsd ? Number(mnbUsd.kozep).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
+              {kozepEUR ? Number(kozepEUR).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
+            </h4>
+          </div>
+          <div>
+            <h4>
+              <img className='thumbnail' src={usdx} alt='USD'></img> Dollár
+            </h4>
+            <h4>
+              {kozepUSD ? Number(kozepUSD).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
             </h4>
           </div>
         </section>
@@ -132,23 +146,26 @@ export default function App() {
             <th>Vétel</th>
             <th>Közép</th>
             <th>Eladás</th>
-            <th className='datum'>Dátum</th>
+            <th className='datumm'>Dátum</th>
           </tr>
         </thead>
 
         <tbody>
-          {sortedData.map((item, index) => (
-            <tr key={index}>
-              <td className='penznem'>
-                <img className='thumbnail' src={currencies.find(cur => cur.code.toUpperCase() === item.penznem).src} alt={item.src} />
-                {item.penznem}
-              </td>
-              <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2).split('.').join(',') : '-'} {item.vetel ? <span className='huf'>HUF</span> : ''}</td>
-              <td className='kozep'>{item.kozep ? Number(item.kozep).toFixed(2).split('.').join(',') : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2)} <span className='huf'>HUF</span></td>
-              <td className='eladas'>{item.eladas ? Number(item.eladas).toFixed(2).split('.').join(',') : '-'} {item.eladas ? <span className='huf'>HUF</span> : ''}</td>
-              <td className='datum'>{item.datum.split(" ")[0].split('-').join('.')}</td>
-            </tr>
-          ))}
+          {dataDeviza
+            .filter(item => item.bank === currentBank)
+            .sort((a, b) => a.penznem.localeCompare(b.penznem))
+            .map((item, index) => (
+              <tr key={index}>
+                <td className='penznem'>
+                  <img className='thumbnail' src={currencies.find(cur => cur.code.toUpperCase() === item.penznem).src} alt={item.src} />
+                  {item.penznem}
+                </td>
+                <td className='vetel'>{item.vetel ? Number(item.vetel).toFixed(2).split('.').join(',') : '-'} {item.vetel ? <span className='huf'>HUF</span> : ''}</td>
+                <td className='kozep'>{item.kozep ? Number(item.kozep).toFixed(2).split('.').join(',') : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2).split('.').join(',')} <span className='huf'>HUF</span></td>
+                <td className='eladas'>{item.eladas ? Number(item.eladas).toFixed(2).split('.').join(',') : '-'} {item.eladas ? <span className='huf'>HUF</span> : ''}</td>
+                <td className='datumm'>{item.datum.split(" ")[0].split('-').join('.')}</td>
+              </tr>
+            ))}
         </tbody>
 
       </table>
