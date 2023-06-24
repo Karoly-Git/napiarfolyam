@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/napiarfolyam/static/css/main.46829ca4.css",
-    "main.js": "/napiarfolyam/static/js/main.c06c4a0b.js",
+    "main.css": "/napiarfolyam/static/css/main.118b7d80.css",
+    "main.js": "/napiarfolyam/static/js/main.cf28431f.js",
     "static/js/787.c4e7f8f9.chunk.js": "/napiarfolyam/static/js/787.c4e7f8f9.chunk.js",
     "static/media/aud.png": "/napiarfolyam/static/media/aud.dbe46626bc4aa2312190.png",
     "static/media/cad.png": "/napiarfolyam/static/media/cad.180d96dea053fb8095bd.png",
@@ -10,12 +10,12 @@
     "static/media/try.png": "/napiarfolyam/static/media/try.d67d01f2a0a112a72f31.png",
     "static/media/jpy.png": "/napiarfolyam/static/media/jpy.04938c0f28af0ba14c4d.png",
     "index.html": "/napiarfolyam/index.html",
-    "main.46829ca4.css.map": "/napiarfolyam/static/css/main.46829ca4.css.map",
-    "main.c06c4a0b.js.map": "/napiarfolyam/static/js/main.c06c4a0b.js.map",
+    "main.118b7d80.css.map": "/napiarfolyam/static/css/main.118b7d80.css.map",
+    "main.cf28431f.js.map": "/napiarfolyam/static/js/main.cf28431f.js.map",
     "787.c4e7f8f9.chunk.js.map": "/napiarfolyam/static/js/787.c4e7f8f9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.46829ca4.css",
-    "static/js/main.c06c4a0b.js"
+    "static/css/main.118b7d80.css",
+    "static/js/main.cf28431f.js"
   ]
 }
