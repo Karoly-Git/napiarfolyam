@@ -1,50 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
-import { allBanks } from './js/data'
+import { allBanks, currencies } from './js/data'
 import './css/app.css'
 
-import audx from './img/flags/aud.png';
-import bgnx from './img/flags/bgn.png';
-import cadx from './img/flags/cad.png';
-import chfx from './img/flags/chf.png';
-import czkx from './img/flags/czk.png';
-import dkkx from './img/flags/dkk.png';
-import eurx from './img/flags/eur.png';
-import gbpx from './img/flags/gbp.png';
-import hrkx from './img/flags/hrk.png';
-import jpyx from './img/flags/jpy.png';
-import nokx from './img/flags/nok.png';
-import plnx from './img/flags/pln.png';
-import ronx from './img/flags/ron.png';
-import rsdx from './img/flags/rsd.png';
-import rubx from './img/flags/rub.png';
-import sekx from './img/flags/sek.png';
-import tryx from './img/flags/try.png';
-import uahx from './img/flags/uah.png';
+import gbpFlag from './img/flags/gbp.png';
+import eurFlag from './img/flags/eur.png';
 import usdx from './img/flags/usd.png';
-
-let currencies = [
-  { code: "AUD", name: "Australian Dollar", src: audx },
-  { code: "BGN", name: "Bulgarian Lev", src: bgnx },
-  { code: "CAD", name: "Canadian Dollar", src: cadx },
-  { code: "CHF", name: "Swiss Franc", src: chfx },
-  { code: "CZK", name: "Czech Koruna", src: czkx },
-  { code: "DKK", name: "Danish Krone", src: dkkx },
-  { code: "EUR", name: "Euro", src: eurx },
-  { code: "GBP", name: "British Pound", src: gbpx },
-  { code: "HRK", name: "Croatian Kuna", src: hrkx },
-  { code: "JPY", name: "Japanese Yen", src: jpyx },
-  { code: "NOK", name: "Norwegian Krone", src: nokx },
-  { code: "PLN", name: "Polish Zloty", src: plnx },
-  { code: "RON", name: "Romanian Leu", src: ronx },
-  { code: "RSD", name: "Serbian Dinar", src: rsdx },
-  { code: "RUB", name: "Russian Ruble", src: rubx },
-  { code: "SEK", name: "Swedish Krona", src: sekx },
-  { code: "TRY", name: "Turkish Lira", src: tryx },
-  { code: "UAH", name: "Ukrainian Hryvnia", src: uahx },
-  { code: "USD", name: "United States Dollar", src: usdx }
-];
-
 
 export default function App() {
 
@@ -96,26 +57,19 @@ export default function App() {
     setCurrentBank(selectedBank);
   }
 
-  let mnbEur = dataDeviza.find(
-    item => item.bank === currentBank && item.penznem === 'EUR'
-  );
-
-  let mnbUsd = dataDeviza.find(
-    item => item.bank === currentBank && item.penznem === 'USD'
-  );
-
   return (
     <div className="App" >
       <header>
         <select onChange={handleBankChange}>
           {allBanks
+            .filter(item => item.status)
             .map((item, index) => <option key={index} id={item.id}>{item.bank}</option>)
           }
         </select>
         <section>
           <div>
             <h4>
-              <img className='thumbnail' src={gbpx} alt='GBP'></img> Font
+              <img className='thumbnail' src={gbpFlag} alt='GBP'></img> <span>Font</span>
             </h4>
             <h4>
               {kozepGBP ? Number(kozepGBP).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}
@@ -123,7 +77,7 @@ export default function App() {
           </div>
           <div>
             <h4>
-              <img className='thumbnail' src={eurx} alt='EUR'></img> Euro
+              <img className='thumbnail' src={eurFlag} alt='EUR'></img> Euró
             </h4>
             <h4>
               {kozepEUR ? Number(kozepEUR).toFixed(2).split('.').join(',') + ' HUF' : 'Loading...'}

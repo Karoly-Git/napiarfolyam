@@ -25,7 +25,17 @@
 
         select {
             padding: 0.5rem 1rem;
+            background-color: red;
+            background-color: rgb(74, 134, 232);
+            outline: none;
+            border: none;
+            color: white;
+
+            option {
+                background-color: rgba(0, 0, 0, 0.5);
+            }
         }
+
 
         section {
             width: 100%;
@@ -38,18 +48,20 @@
                 margin-top: 1rem;
 
                 h4:first-child {
-                    font-size: 0.75rem;
-                    color: darkcyan;
-                    font-weight: 100;
+                    font-size: 1rem;
+                    //color: darkcyan;
+                    font-weight: 500;
                 }
 
                 h4 {
-                    font-weight: 600;
-                    color: rgba(0, 0, 0, 0.65);
+                    font-weight: 500;
+                    //color: rgba(0, 0, 0, 0.65);
+                    display: flex;
+                    justify-content: space-between;
                 }
 
                 h4:nth-child(2) {
-                    font-weight: 100;
+                    font-weight: 500;
                     color: rgb(74, 134, 232);
                 }
             }
@@ -126,16 +138,18 @@
             padding-left: 0.25rem;
             padding-right: 0.25rem;
         }
-    }
-}
 
-@media only screen and(max-width: 430px) {
-    .App {
         header {
             div {
+
                 h4 {
                     font-size: 0.85rem;
                 }
+
+                h4:first-child {
+                    font-size: 0.85rem !important;
+                }
+
             }
         }
 

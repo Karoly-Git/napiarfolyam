@@ -24,6 +24,14 @@
 }
 .App header select {
   padding: 0.5rem 1rem;
+  background-color: red;
+  background-color: rgb(74, 134, 232);
+  outline: none;
+  border: none;
+  color: white;
+}
+.App header select option {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 .App header section {
   width: 100%;
@@ -35,16 +43,16 @@
   margin-top: 1rem;
 }
 .App header section div h4:first-child {
-  font-size: 0.75rem;
-  color: darkcyan;
-  font-weight: 100;
+  font-size: 1rem;
+  font-weight: 500;
 }
 .App header section div h4 {
-  font-weight: 600;
-  color: rgba(0, 0, 0, 0.65);
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between;
 }
 .App header section div h4:nth-child(2) {
-  font-weight: 100;
+  font-weight: 500;
   color: rgb(74, 134, 232);
 }
 .App table {
@@ -95,10 +103,11 @@
     padding-left: 0.25rem;
     padding-right: 0.25rem;
   }
-}
-@media only screen and (max-width: 430px) {
   .App header div h4 {
     font-size: 0.85rem;
+  }
+  .App header div h4:first-child {
+    font-size: 0.85rem !important;
   }
   .App th,
 .App td {
