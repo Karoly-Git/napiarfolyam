@@ -1,16 +1,58 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import { allBanks, currencies } from './js/data'
+
 import './css/app.css'
-
-import gbpFlag from './img/flags/gbp.png';
-import eurFlag from './img/flags/eur.png';
-import usdFlag from './img/flags/usd.png';
-
-const flags = [gbpFlag, eurFlag, usdFlag];
 
 const isLocalServer = !true;
 const url = isLocalServer ? 'http://localhost:8000/deviza' : 'https://napiarfolyam-3e2954a40ab4.herokuapp.com/deviza';
+
+function concatDecimals(number, numOfDecimals = 2, decimalMark = ',') {
+  let split = String(number).split('.');
+  if (split.length === 1) {
+    let tail = '';
+    for (let i = 0; i < numOfDecimals; i++) {
+      tail += '0';
+    }
+    return String(number)// + ',' + tail;
+  }
+  if (split[1].length < numOfDecimals) {
+    let difference = numOfDecimals - split[1].length;
+    let tail = '';
+    for (let i = 0; i < difference; i++) {
+      tail += '0';
+    }
+    return split[0] + decimalMark + split[1].slice(0, numOfDecimals) + tail;
+  }
+  return split[0] + decimalMark + split[1].slice(0, numOfDecimals);
+};
+
+
+const getCurrencyData = (data, bank, currency) => {
+  return data.find(item => item.bank === bank && item.penznem === currency);
+};
+
+const getDateOfLastUpdate = (data, bank, currency) => {
+  return data
+    .find(item => item.bank === bank && item.penznem === currency).datum
+    .split(' ')[0]
+    .split('-')
+    .join('.');
+};
+
+const calculateMidValue = (data, bank, currency) => {
+  const currencyData = getCurrencyData(data, bank, currency);
+  if (currencyData) {
+    const { kozep, vetel, eladas } = currencyData;
+    if (kozep) {
+      return concatDecimals(kozep);
+    } else {
+      const midValue = (Number(vetel) + Number(eladas)) / 2;
+      return concatDecimals(midValue);
+    }
+  }
+  return null;
+};
 
 export default function App() {
 
@@ -25,25 +67,17 @@ export default function App() {
 
   const fetchData = async () => {
     try {
-      const response = await Axios.get(url);
-      const result = await response.data;
+      let response = await Axios.get(url);
+      let result = response.data;
       setFetchedData(result);
-      let lastUpdate = result
-        .find(item => item.bank === 'mnb' && item.penznem === 'GBP').datum
-        .split(' ')[0]
-        .split('-')
-        .join('.')
-      setDate(lastUpdate);
+
+      setDate(getDateOfLastUpdate(result, 'mnb', 'GBP'));
 
       let newMidValues = {};
-      displayOnTop.forEach((currency, index) => {
-        let newKozep = Number(result.find(item => item.bank === currentBank && item.penznem === currency).kozep);
-        if (newKozep) {
-          newMidValues[currency] = Number(newKozep.toFixed(2));
-        } else {
-          let newVetel = Number(result.find(item => item.bank === currentBank && item.penznem === currency).vetel);
-          let newEladas = Number(result.find(item => item.bank === currentBank && item.penznem === currency).eladas);
-          newMidValues[currency] = Number(((newVetel + newEladas) / 2).toFixed(2));
+      displayOnTop.forEach(currency => {
+        let newMidValue = calculateMidValue(result, currentBank, currency);
+        if (newMidValue) {
+          newMidValues[currency] = newMidValue;
         }
       });
 
@@ -58,18 +92,14 @@ export default function App() {
   }, [])
 
   const handleBankChange = (e) => {
-    const selectedBank = e.target.options[e.target.selectedIndex].getAttribute('id');
+    let selectedBank = e.target.options[e.target.selectedIndex].getAttribute('id');
     setCurrentBank(selectedBank);
 
     let newMidValues = {};
-    displayOnTop.forEach((currency, index) => {
-      let newKozep = Number(fetchedData.find(item => item.bank === selectedBank && item.penznem === currency).kozep);
-      if (newKozep) {
-        newMidValues[currency] = Number(newKozep.toFixed(2));
-      } else {
-        let newVetel = Number(fetchedData.find(item => item.bank === selectedBank && item.penznem === currency).vetel);
-        let newEladas = Number(fetchedData.find(item => item.bank === selectedBank && item.penznem === currency).eladas);
-        newMidValues[currency] = Number(((newVetel + newEladas) / 2).toFixed(2));
+    displayOnTop.forEach(currency => {
+      let newMidValue = calculateMidValue(fetchedData, selectedBank, currency);
+      if (newMidValue) {
+        newMidValues[currency] = newMidValue;
       }
     });
 
@@ -84,19 +114,19 @@ export default function App() {
             {allBanks
               .filter(item => item.status)
               .map((item, index) => (
-                <option key={index} id={item.id}>{item.bank}</option>
+                <option key={'allBanks' + index} id={item.id}>{item.bank}</option>
               ))}
           </select>
           <span>{date ? date : 'Loading...'}</span>
         </div>
         <section>
           {displayOnTop.map((item, index) => (
-            <div key={index}>
+            <div key={'displayOnTop' + index}>
               <h4>
-                <img className='thumbnail' src={flags[index]} alt={item}></img> <span>{item}</span>
+                <img className='thumbnail' src={currencies.find(element => element.code === item).src} alt={item}></img> <span>{item}</span>
               </h4>
               <h4>
-                {midValues[item] ? String(midValues[item]).split('.').join(',') : 'Loading...'}
+                {midValues[item] ? concatDecimals(midValues[item]) : 'Loading...'}
               </h4>
             </div>
           ))}
@@ -118,21 +148,21 @@ export default function App() {
             .filter(item => item.bank === currentBank)
             .sort((a, b) => a.penznem.localeCompare(b.penznem))
             .map((item, index) => (
-              <tr key={index}>
+              <tr key={'fetchedData' + index}>
                 <td className='penznem'>
                   <img className='thumbnail' src={currencies.find(cur => cur.code.toUpperCase() === item.penznem).src} alt={item.src} />
                   {item.penznem}
                 </td>
                 <td className='vetel'>
-                  {item.vetel ? Number(item.vetel).toFixed(2).split('.').join(',') : '-'}
+                  {item.vetel ? concatDecimals(item.vetel) : '-'}
                   {item.vetel ? <span className='huf'>HUF</span> : false}
                 </td>
                 <td className='kozep'>
-                  {item.kozep ? Number(item.kozep).toFixed(2).split('.').join(',') : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2).split('.').join(',')}
+                  {item.kozep ? concatDecimals(item.kozep) : concatDecimals((Number(item.eladas) + Number(item.vetel)) / 2)}
                   {item.kozep ? <span className='huf'>HUF</span> : false}
                 </td>
                 <td className='eladas'>
-                  {item.eladas ? Number(item.eladas).toFixed(2).split('.').join(',') : '-'}
+                  {item.eladas ? concatDecimals(item.eladas) : '-'}
                   {item.eladas ? <span className='huf'>HUF</span> : false}
                 </td>
                 <td className='datum'>{item.datum.split(" ")[0].split('-').join('.')}</td>

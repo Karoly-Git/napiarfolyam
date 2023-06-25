@@ -31,14 +31,14 @@ const calculateMidValue = (dataDeviza, bank, currency) => {
 export default function App() {
   const displayOnTop = ['GBP', 'EUR', 'USD'];
   const [midValues, setMidValues] = useState({});
-  const [dataDeviza, setDataDeviza] = useState([]);
+  const [dataDeviza, setFetchData] = useState([]);
   const [currentBank, setCurrentBank] = useState('mnb');
 
   const fetchData = async () => {
     try {
       const response = await Axios.get(url);
       const result = response.data;
-      setDataDeviza(result);
+      setFetchData(result);
 
       const newMidValues = {};
       displayOnTop.forEach(currency => {

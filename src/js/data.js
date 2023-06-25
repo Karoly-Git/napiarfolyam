@@ -1,7 +1,6 @@
 import gbpFlag from '../img/flags/gbp.png';
 import eurFlag from '../img/flags/eur.png';
 import usdFlag from '../img/flags/usd.png';
-
 import audFlag from '../img/flags/aud.png';
 import bgnFlag from '../img/flags/bgn.png';
 import cadFlag from '../img/flags/cad.png';
@@ -20,10 +19,11 @@ import tryFlag from '../img/flags/try.png';
 import uahFlag from '../img/flags/uah.png';
 
 export const allBanks = [
+    //the most important banks on the top of the list
     { status: true, id: 'mnb', bank: 'Magyar Nemzeti Bank' },
     { status: true, id: 'raiffeisen', bank: 'Raiffeisen Bank' },
     { status: true, id: 'erste', bank: 'Erste Bank' },
-
+    //and the rest
     { status: true, id: 'akcenta', bank: 'Akcenta' },
     { status: false, id: 'allianz', bank: 'Allianz Bank' },
     { status: false, id: 'banco', bank: 'Banco' },
