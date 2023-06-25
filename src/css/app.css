@@ -6,7 +6,6 @@
 }
 
 .App {
-  padding: 1rem;
   display: flex;
   flex-direction: column;
 }
@@ -20,18 +19,31 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 1rem 0;
+  padding: 1rem;
+  max-width: 500px;
 }
-.App header select {
+.App header .line-1 {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.App header .line-1 select {
   padding: 0.5rem 1rem;
   background-color: red;
   background-color: rgb(74, 134, 232);
   outline: none;
   border: none;
   color: white;
+  width: 100%;
+  max-width: 250px;
 }
-.App header select option {
+.App header .line-1 select option {
   background-color: rgba(0, 0, 0, 0.5);
+}
+.App header .line-1 span {
+  margin-left: 0.5rem;
+  font-family: Verdana, Geneva, sans-serif;
 }
 .App header section {
   width: 100%;
@@ -50,6 +62,10 @@
   font-weight: 500;
   display: flex;
   justify-content: space-between;
+}
+.App header section div h4:nth-child(2) {
+  justify-content: flex-end;
+  margin-top: 0.25rem;
 }
 .App header section div h4:nth-child(2) {
   font-weight: 500;
@@ -71,6 +87,7 @@
 }
 .App table tbody tr td .huf {
   font-size: 0.75rem;
+  display: none;
 }
 .App table tbody .vetel,
 .App table tbody .eladas {
@@ -102,6 +119,7 @@
 .App td {
     padding-left: 0.25rem;
     padding-right: 0.25rem;
+    font-size: 0.75rem;
   }
   .App header div h4 {
     font-size: 0.85rem;
@@ -109,12 +127,24 @@
   .App header div h4:first-child {
     font-size: 0.85rem !important;
   }
-  .App th,
-.App td {
-    font-size: 0.75rem;
+}
+@media only screen and (max-width: 400px) {
+  .App header .line-1 span {
+    font-size: 0.85rem;
   }
 }
 @media only screen and (max-width: 350px) {
+  .App header {
+    padding: 1rem 0.25rem;
+  }
+  .App header .line-1 {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .App header .line-1 span {
+    margin-top: 0.75rem;
+    margin-left: 0;
+  }
   .App table th,
 .App table td {
     padding: 0.5rem;

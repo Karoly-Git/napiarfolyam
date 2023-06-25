@@ -20,12 +20,20 @@ export default function App() {
   const [fetchedData, setFetchedData] = useState([]);
   const [currentBank, setCurrentBank] = useState('mnb');
 
+  const [date, setDate] = useState(null);
+
 
   const fetchData = async () => {
     try {
       const response = await Axios.get(url);
       const result = await response.data;
       setFetchedData(result);
+      let lastUpdate = result
+        .find(item => item.bank === 'mnb' && item.penznem === 'GBP').datum
+        .split(' ')[0]
+        .split('-')
+        .join('.')
+      setDate(lastUpdate);
 
       let newMidValues = {};
       displayOnTop.forEach((currency, index) => {
@@ -71,13 +79,16 @@ export default function App() {
   return (
     <div className="App" >
       <header>
-        <select onChange={handleBankChange}>
-          {allBanks
-            .filter(item => item.status)
-            .map((item, index) => (
-              <option key={index} id={item.id}>{item.bank}</option>
-            ))}
-        </select>
+        <div className='line-1'>
+          <select onChange={handleBankChange}>
+            {allBanks
+              .filter(item => item.status)
+              .map((item, index) => (
+                <option key={index} id={item.id}>{item.bank}</option>
+              ))}
+          </select>
+          <span>{date ? date : 'Loading...'}</span>
+        </div>
         <section>
           {displayOnTop.map((item, index) => (
             <div key={index}>
@@ -85,7 +96,7 @@ export default function App() {
                 <img className='thumbnail' src={flags[index]} alt={item}></img> <span>{item}</span>
               </h4>
               <h4>
-                {midValues[item]} HUF
+                {midValues[item] ? String(midValues[item]).split('.').join(',') : 'Loading...'}
               </h4>
             </div>
           ))}
@@ -94,11 +105,11 @@ export default function App() {
       <table>
         <thead>
           <tr>
-            <th>Pénznem</th>
+            <th>Deviza</th>
             <th>Vétel</th>
             <th>Közép</th>
             <th>Eladás</th>
-            <th className='datumm'>Dátum</th>
+            <th className='datum'>Dátum</th>
           </tr>
         </thead>
 
@@ -114,17 +125,17 @@ export default function App() {
                 </td>
                 <td className='vetel'>
                   {item.vetel ? Number(item.vetel).toFixed(2).split('.').join(',') : '-'}
-                  {item.vetel && <span className='huf'>HUF</span>}
+                  {item.vetel ? <span className='huf'>HUF</span> : false}
                 </td>
                 <td className='kozep'>
                   {item.kozep ? Number(item.kozep).toFixed(2).split('.').join(',') : ((Number(item.eladas) + Number(item.vetel)) / 2).toFixed(2).split('.').join(',')}
-                  <span className='huf'>HUF</span>
+                  {item.kozep ? <span className='huf'>HUF</span> : false}
                 </td>
                 <td className='eladas'>
                   {item.eladas ? Number(item.eladas).toFixed(2).split('.').join(',') : '-'}
-                  {item.eladas && <span className='huf'>HUF</span>}
+                  {item.eladas ? <span className='huf'>HUF</span> : false}
                 </td>
-                <td className='datumm'>{item.datum.split(" ")[0].split('-').join('.')}</td>
+                <td className='datum'>{item.datum.split(" ")[0].split('-').join('.')}</td>
               </tr>
             ))}
         </tbody>

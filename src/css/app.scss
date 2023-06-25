@@ -6,7 +6,6 @@
 }
 
 .App {
-    padding: 1rem;
     display: flex;
     flex-direction: column;
 
@@ -21,18 +20,33 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: 1rem 0;
+        padding: 1rem;
+        max-width: 500px;
 
-        select {
-            padding: 0.5rem 1rem;
-            background-color: red;
-            background-color: rgb(74, 134, 232);
-            outline: none;
-            border: none;
-            color: white;
+        .line-1 {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
 
-            option {
-                background-color: rgba(0, 0, 0, 0.5);
+            select {
+                padding: 0.5rem 1rem;
+                background-color: red;
+                background-color: rgb(74, 134, 232);
+                outline: none;
+                border: none;
+                color: white;
+                width: 100%;
+                max-width: 250px;
+
+                option {
+                    background-color: rgba(0, 0, 0, 0.5);
+                }
+            }
+
+            span {
+                margin-left: 0.5rem;
+                font-family: Verdana, Geneva, sans-serif;
             }
         }
 
@@ -51,6 +65,7 @@
                     font-size: 1rem;
                     //color: darkcyan;
                     font-weight: 500;
+                    //background-color: black;
                 }
 
                 h4 {
@@ -58,6 +73,12 @@
                     //color: rgba(0, 0, 0, 0.65);
                     display: flex;
                     justify-content: space-between;
+                }
+
+                h4:nth-child(2) {
+                    justify-content: flex-end;
+                    margin-top: 0.25rem;
+                    //background-color: red;
                 }
 
                 h4:nth-child(2) {
@@ -92,6 +113,7 @@
                 td {
                     .huf {
                         font-size: 0.75rem;
+                        display: none;
                     }
                 }
             }
@@ -137,11 +159,11 @@
         td {
             padding-left: 0.25rem;
             padding-right: 0.25rem;
+            font-size: 0.75rem;
         }
 
         header {
             div {
-
                 h4 {
                     font-size: 0.85rem;
                 }
@@ -149,19 +171,42 @@
                 h4:first-child {
                     font-size: 0.85rem !important;
                 }
-
             }
-        }
-
-        th,
-        td {
-            font-size: 0.75rem;
         }
     }
 }
 
+@media only screen and(max-width: 400px) {
+    .App {
+        header {
+            .line-1 {
+                //flex-direction: column;
+
+                span {
+                    font-size: 0.85rem;
+                }
+            }
+        }
+    }
+}
+
+
 @media only screen and(max-width: 350px) {
     .App {
+        header {
+            padding: 1rem 0.25rem;
+
+            .line-1 {
+                flex-direction: column;
+                align-items: flex-start;
+
+                span {
+                    margin-top: 0.75rem;
+                    margin-left: 0;
+                }
+            }
+        }
+
         table {
 
             th,
