@@ -11,7 +11,7 @@
   flex-direction: column;
 }
 .App .thumbnail {
-  width: 1.75rem;
+  width: 1.5rem;
   height: 1rem;
   margin-right: 5px;
   border: 1px solid rgba(150, 150, 150, 0.85);

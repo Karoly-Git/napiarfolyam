@@ -1,41 +1,50 @@
-import React, { useEffect, useState } from 'react'
-import Axios from 'axios'
-import { allBanks, currencies } from './js/data'
-import './css/app.css'
+import React, { useEffect, useState } from 'react';
+import Axios from 'axios';
+import { allBanks, currencies } from './js/data';
+import './css/app.css';
 
 import gbpFlag from './img/flags/gbp.png';
 import eurFlag from './img/flags/eur.png';
-import usdFlag from './img/flags/usd.png';
-
-const flags = [gbpFlag, eurFlag, usdFlag];
+import usdx from './img/flags/usd.png';
 
 const isLocalServer = !true;
 const url = isLocalServer ? 'http://localhost:8000/deviza' : 'https://napiarfolyam-3e2954a40ab4.herokuapp.com/deviza';
 
-export default function App() {
+const getCurrencyData = (dataDeviza, bank, currency) => {
+  return dataDeviza.find(item => item.bank === bank && item.penznem === currency);
+};
 
+const calculateMidValue = (dataDeviza, bank, currency) => {
+  const currencyData = getCurrencyData(dataDeviza, bank, currency);
+  if (currencyData) {
+    const { kozep, vetel, eladas } = currencyData;
+    if (kozep) {
+      return Number(kozep.toFixed(2));
+    } else {
+      const midValue = (Number(vetel) + Number(eladas)) / 2;
+      return Number(midValue.toFixed(2));
+    }
+  }
+  return null;
+};
+
+export default function App() {
   const displayOnTop = ['GBP', 'EUR', 'USD'];
   const [midValues, setMidValues] = useState({});
-
-  const [fetchedData, setFetchedData] = useState([]);
+  const [dataDeviza, setDataDeviza] = useState([]);
   const [currentBank, setCurrentBank] = useState('mnb');
-
 
   const fetchData = async () => {
     try {
       const response = await Axios.get(url);
-      const result = await response.data;
-      setFetchedData(result);
+      const result = response.data;
+      setDataDeviza(result);
 
-      let newMidValues = {};
-      displayOnTop.forEach((currency, index) => {
-        let newKozep = Number(result.find(item => item.bank === currentBank && item.penznem === currency).kozep);
-        if (newKozep) {
-          newMidValues[currency] = Number(newKozep.toFixed(2));
-        } else {
-          let newVetel = Number(result.find(item => item.bank === currentBank && item.penznem === currency).vetel);
-          let newEladas = Number(result.find(item => item.bank === currentBank && item.penznem === currency).eladas);
-          newMidValues[currency] = Number(((newVetel + newEladas) / 2).toFixed(2));
+      const newMidValues = {};
+      displayOnTop.forEach(currency => {
+        const newMidValue = calculateMidValue(result, currentBank, currency);
+        if (newMidValue) {
+          newMidValues[currency] = newMidValue;
         }
       });
 
@@ -47,29 +56,25 @@ export default function App() {
 
   useEffect(() => {
     fetchData();
-  }, [])
+  }, []);
 
   const handleBankChange = (e) => {
     const selectedBank = e.target.options[e.target.selectedIndex].getAttribute('id');
     setCurrentBank(selectedBank);
 
-    let newMidValues = {};
-    displayOnTop.forEach((currency, index) => {
-      let newKozep = Number(fetchedData.find(item => item.bank === selectedBank && item.penznem === currency).kozep);
-      if (newKozep) {
-        newMidValues[currency] = Number(newKozep.toFixed(2));
-      } else {
-        let newVetel = Number(fetchedData.find(item => item.bank === selectedBank && item.penznem === currency).vetel);
-        let newEladas = Number(fetchedData.find(item => item.bank === selectedBank && item.penznem === currency).eladas);
-        newMidValues[currency] = Number(((newVetel + newEladas) / 2).toFixed(2));
+    const newMidValues = {};
+    displayOnTop.forEach(currency => {
+      const newMidValue = calculateMidValue(dataDeviza, selectedBank, currency);
+      if (newMidValue) {
+        newMidValues[currency] = newMidValue;
       }
     });
 
     setMidValues(newMidValues);
-  }
+  };
 
   return (
-    <div className="App" >
+    <div className="App">
       <header>
         <select onChange={handleBankChange}>
           {allBanks
@@ -79,16 +84,24 @@ export default function App() {
             ))}
         </select>
         <section>
-          {displayOnTop.map((item, index) => (
-            <div key={index}>
-              <h4>
-                <img className='thumbnail' src={flags[index]} alt={item}></img> <span>{item}</span>
-              </h4>
-              <h4>
-                {midValues[item]} HUF
-              </h4>
-            </div>
-          ))}
+          <div>
+            <h4>
+              <img className='thumbnail' src={gbpFlag} alt='GBP' /> <span>Font</span>
+            </h4>
+            <h4>{midValues.GBP} HUF</h4>
+          </div>
+          <div>
+            <h4>
+              <img className='thumbnail' src={eurFlag} alt='EUR' /> Euró
+            </h4>
+            <h4>{midValues.EUR} HUF</h4>
+          </div>
+          <div>
+            <h4>
+              <img className='thumbnail' src={usdx} alt='USD' /> Dollár
+            </h4>
+            <h4>{midValues.USD} HUF</h4>
+          </div>
         </section>
       </header>
       <table>
@@ -101,9 +114,8 @@ export default function App() {
             <th className='datumm'>Dátum</th>
           </tr>
         </thead>
-
         <tbody>
-          {fetchedData
+          {dataDeviza
             .filter(item => item.bank === currentBank)
             .sort((a, b) => a.penznem.localeCompare(b.penznem))
             .map((item, index) => (
@@ -129,8 +141,6 @@ export default function App() {
             ))}
         </tbody>
       </table>
-    </div >
+    </div>
   );
 }
-
-
