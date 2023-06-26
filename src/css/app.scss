@@ -8,6 +8,7 @@
 .App {
     display: flex;
     flex-direction: column;
+    //background-color: green;
 
     .thumbnail {
         width: 1.5rem;
@@ -148,6 +149,31 @@
 
         .datum {
             display: none;
+        }
+    }
+
+    footer {
+
+        ul {
+            display: flex;
+            flex-direction: column;
+            list-style: none;
+            max-width: 500px;
+            justify-content: center;
+            margin: 1rem;
+
+            li {
+                //background-color: red;
+                text-align: center;
+            }
+
+            li:not(li:last-child) {
+                margin-bottom: 0.5rem;
+            }
+
+            li:last-child {
+                font-size: 0.75rem;
+            }
         }
     }
 }

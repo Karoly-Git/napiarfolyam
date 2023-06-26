@@ -113,6 +113,23 @@
 .App table .datum {
   display: none;
 }
+.App footer ul {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  max-width: 500px;
+  justify-content: center;
+  margin: 1rem;
+}
+.App footer ul li {
+  text-align: center;
+}
+.App footer ul li:not(li:last-child) {
+  margin-bottom: 0.5rem;
+}
+.App footer ul li:last-child {
+  font-size: 0.75rem;
+}
 
 @media only screen and (max-width: 500px) {
   .App .th,
