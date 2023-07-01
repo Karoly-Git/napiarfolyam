@@ -4,7 +4,7 @@ import { allBanks, currencies } from './js/data'
 
 import './css/app.css'
 
-const isLocalServer = !true;
+const isLocalServer = true;
 const url = isLocalServer ? 'http://localhost:8000/deviza' : 'https://napiarfolyam-3e2954a40ab4.herokuapp.com/deviza';
 
 function concatDecimals(number, numOfDecimals = 2, decimalMark = ',') {
@@ -26,13 +26,6 @@ function concatDecimals(number, numOfDecimals = 2, decimalMark = ',') {
   }
   return split[0] + decimalMark + split[1].slice(0, numOfDecimals);
 };
-
-/*function concatDecimals(number, numOfDecimals = 2, decimalMark = ',') {
-  const fixedNumber = parseFloat(number).toFixed(numOfDecimals);
-  const [integerPart, decimalPart] = fixedNumber.split('.');
-  const formattedDecimalPart = decimalPart.padEnd(numOfDecimals, '0');
-  return `${integerPart}${decimalMark}${formattedDecimalPart}`;
-}*/
 
 const getCurrencyData = (data, bank, currency) => {
   return data.find(item => item.bank === bank && item.penznem === currency);
@@ -82,9 +75,7 @@ export default function App() {
       let newMidValues = {};
       displayOnTop.forEach(currency => {
         let newMidValue = calculateMidValue(result, currentBank, currency);
-        if (newMidValue) {
-          newMidValues[currency] = newMidValue;
-        }
+        newMidValues[currency] = newMidValue;
       });
 
       setMidValues(newMidValues);
