@@ -4,7 +4,7 @@ import { allBanks, currencies } from './js/data'
 
 import './css/app.css'
 
-const isLocalServer = true;
+const isLocalServer = false;
 const url = isLocalServer ? 'http://localhost:8000/deviza' : 'https://napiarfolyam-3e2954a40ab4.herokuapp.com/deviza';
 
 function concatDecimals(number, numOfDecimals = 2, decimalMark = ',') {
